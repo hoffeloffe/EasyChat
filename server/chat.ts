@@ -28,6 +28,15 @@ export async function chatHandler(
       return;
     }
 
+    // Sanitize history: only allow valid roles and string content
+    const safeHistory = (Array.isArray(history) ? history : [])
+      .filter(
+        (m): m is { role: "user" | "assistant"; content: string } =>
+          (m.role === "user" || m.role === "assistant") &&
+          typeof m.content === "string"
+      )
+      .map((m) => ({ role: m.role, content: m.content.slice(0, 2000) }));
+
     if (!process.env.OPENAI_API_KEY) {
       res.status(500).json({ error: "OPENAI_API_KEY is not configured" });
       return;
@@ -47,7 +56,7 @@ Keep responses under 150 words.`;
 
     const messages: OpenAI.Chat.Completions.ChatCompletionMessageParam[] = [
       { role: "system", content: systemPrompt },
-      ...history.slice(-8).map((m) => ({
+      ...safeHistory.slice(-8).map((m) => ({
         role: m.role as "user" | "assistant",
         content: m.content,
       })),

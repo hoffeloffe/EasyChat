@@ -450,9 +450,9 @@
 
   // widget/easychat.ts
   var ICONS = {
-    chat: '<svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/></svg>',
+    chat: '<svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z" fill="currentColor"/></svg>',
     close: '<svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" fill="currentColor"/></svg>',
-    send: '<svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>',
+    send: '<svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" fill="currentColor"/></svg>',
     bot: "\u{1F916}"
   };
   var DEFAULTS = {
@@ -602,6 +602,7 @@
         this.suggestionsShown = false;
         this.suggestionsEl.style.display = "none";
       }
+      const history = [...this.messages];
       this.addMessage("user", text);
       this.showTyping();
       let reply;
@@ -609,7 +610,7 @@
         await this.delay(300 + Math.random() * 500);
         reply = this.fileEngine.getAnswer(text);
       } else if (this.config.mode === "ai" && this.aiEngine) {
-        reply = await this.aiEngine.getAnswer(text, this.messages.slice(0, -1));
+        reply = await this.aiEngine.getAnswer(text, history);
       } else {
         reply = "Chat is not configured correctly. Please check the setup.";
       }
@@ -651,7 +652,10 @@
   (function autoInit() {
     if (typeof document === "undefined") return;
     const script = document.currentScript;
-    if (!script) return;
+    if (!script) {
+      console.warn("[EasyChat] document.currentScript is null. Auto-init won't work with defer/async scripts. Use `new EasyChat({...})` instead.");
+      return;
+    }
     const configUrl = script.getAttribute("data-config");
     const mode = script.getAttribute("data-mode");
     if (configUrl) {
