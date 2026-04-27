@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EasyChat Demo</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #f8fafc;
+      color: #1e293b;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 60px 24px;
+    }
+    h1 { font-size: 2.5rem; font-weight: 800; margin-bottom: 16px; }
+    h1 span { color: #6366f1; }
+    p { font-size: 1.1rem; color: #64748b; line-height: 1.7; margin-bottom: 12px; }
+    .badge {
+      display: inline-block;
+      background: #eef2ff;
+      color: #6366f1;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      margin-bottom: 20px;
+    }
+    .card {
+      background: white;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 24px;
+      margin-top: 32px;
+    }
+    .card h2 { font-size: 1.2rem; margin-bottom: 8px; }
+    code {
+      background: #f1f5f9;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="badge">✨ Live Demo</div>
+    <h1>Welcome to <span>EasyChat</span></h1>
+    <p>
+      This is a demo page with the EasyChat widget loaded in <strong>file mode</strong>.
+      Click the chat button in the bottom-right corner to try it out!
+    </p>
+    <p>
+      The chatbot reads from a <code>knowledge.json</code> file and matches your
+      questions using smart keyword matching — no AI, no API keys, no server needed.
+    </p>
+
+    <div class="card">
+      <h2>💡 Try asking:</h2>
+      <p>• "What is EasyChat?"</p>
+      <p>• "How do I install it?"</p>
+      <p>• "Is it free?"</p>
+      <p>• "What file formats are supported?"</p>
+      <p>• "Can I use it with React?"</p>
+    </div>
+
+    <div class="card">
+      <h2>📁 How this works</h2>
+      <p>
+        This page includes a single <code>&lt;script&gt;</code> tag that loads the
+        EasyChat widget. The widget fetches <code>knowledge.json</code> and uses
+        keyword matching to answer questions. That's it!
+      </p>
+    </div>
+  </div>
+
+  <!-- EasyChat Widget - File Mode -->
+  <script
+    src="./dist/easychat.js"
+    data-mode="file"
+    data-bot-name="EasyChat Bot"
+    data-welcome="Hi there! 👋 Ask me anything about EasyChat!"
+    data-knowledge-url="./knowledge/knowledge.json"
+    data-color="#6366f1"
+    data-position="bottom-right">
+  </script>
+</body>
+</html>

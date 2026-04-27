@@ -1,0 +1,42 @@
+[
+  {
+    "question": "What is EasyChat?",
+    "answer": "EasyChat is a free, open-source embeddable chatbot that you can add to any website. It supports two modes: a file-based mode that answers questions from your knowledge base without AI, and an AI mode powered by OpenAI.",
+    "keywords": ["easychat", "chatbot", "widget", "free", "open-source"]
+  },
+  {
+    "question": "How do I install EasyChat?",
+    "answer": "You can install EasyChat by adding a single script tag to your HTML: <script src='easychat.min.js' data-mode='file' data-knowledge-url='/knowledge.json'></script>. That's it! The chatbot will appear in the bottom-right corner of your page.",
+    "keywords": ["install", "setup", "script", "embed", "integrate"]
+  },
+  {
+    "question": "What is file mode?",
+    "answer": "File mode is EasyChat's no-AI option. It reads questions and answers from a JSON file and uses keyword matching to find the best response. No API keys needed, no server required — it runs 100% in the browser.",
+    "keywords": ["file", "mode", "no-ai", "keyword", "matching", "browser"]
+  },
+  {
+    "question": "What is AI mode?",
+    "answer": "AI mode uses OpenAI's GPT model to generate intelligent responses. It requires a small backend server (included) that keeps your API key secure. The AI uses your knowledge base as context to give accurate, relevant answers.",
+    "keywords": ["ai", "mode", "openai", "gpt", "server", "intelligent"]
+  },
+  {
+    "question": "Is EasyChat free?",
+    "answer": "Yes! EasyChat is completely free and open-source under the MIT license. You can use it for personal projects, commercial websites, or anything else. No subscriptions, no limits.",
+    "keywords": ["free", "cost", "price", "open-source", "license", "mit"]
+  },
+  {
+    "question": "How do I customize the chatbot?",
+    "answer": "You can customize EasyChat through data attributes on the script tag (colors, position, bot name, welcome message) or by passing a config object. For advanced styling, override CSS custom properties that start with --ec-.",
+    "keywords": ["customize", "theme", "color", "style", "config", "appearance"]
+  },
+  {
+    "question": "What file formats are supported for the knowledge base?",
+    "answer": "The knowledge base supports JSON files (recommended), Markdown (.md) files, and plain text (.txt) files. JSON files should contain an array of objects with 'question', 'answer', and optionally 'keywords' fields.",
+    "keywords": ["format", "json", "markdown", "text", "knowledge", "file"]
+  },
+  {
+    "question": "Can I use EasyChat with React?",
+    "answer": "Yes! While EasyChat works with any website via a script tag, you can also import and use it in React projects. Just import the EasyChat class and instantiate it in a useEffect hook.",
+    "keywords": ["react", "component", "framework", "javascript", "import"]
+  }
+]
