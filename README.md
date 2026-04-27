@@ -16,8 +16,6 @@ flowchart TD
   end
 
   User[Visitor] --> Widget[EasyChat Widget]
-  Widget -->|mode=file| FE
-  Widget -->|mode=ai| SRV
   FE --> Widget
   OAI --> SRV --> Widget
   Widget --> User
