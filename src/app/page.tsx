@@ -100,18 +100,18 @@ function Features() {
   const features = [
     {
       icon: BookOpen,
-      title: "File Mode — No AI Required",
+      title: "File Mode - No AI Required",
       desc: "Add a JSON file with questions & answers. The chatbot matches user queries using smart keyword matching. Runs 100% in the browser.",
     },
     {
       icon: Zap,
-      title: "AI Mode — GPT Powered",
+      title: "AI Mode - GPT Powered",
       desc: "Connect to OpenAI for intelligent responses. Your knowledge base is used as context so the AI stays accurate and on-topic.",
     },
     {
       icon: Code,
       title: "One Line Integration",
-      desc: "Add a single script tag to your HTML. Works with any website — React, Vue, WordPress, plain HTML, anything.",
+      desc: "Add a single script tag to your HTML. Works with any website - React, Vue, WordPress, plain HTML, anything.",
     },
     {
       icon: Palette,
@@ -394,7 +394,7 @@ function Footer() {
       <div className="max-w-6xl mx-auto flex items-center justify-between text-sm text-gray-500">
         <div className="flex items-center gap-2">
           <MessageSquare className="h-4 w-4 text-indigo-600" />
-          <span>EasyChat — Free & Open Source</span>
+          <span>EasyChat - Free & Open Source</span>
         </div>
         <div className="flex items-center gap-4">
           <a href="https://github.com/hoffeloffe/EasyChat" target="_blank" className="hover:text-gray-900">GitHub</a>

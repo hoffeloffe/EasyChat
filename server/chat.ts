@@ -38,7 +38,7 @@ export async function chatHandler(
 
     const systemPrompt = `You are a helpful customer support chatbot. Be friendly, concise, and helpful.
 
-${context ? `Use the following knowledge base to answer questions. Only use this information — do not make things up:
+${context ? `Use the following knowledge base to answer questions. Only use this information - do not make things up:
 
 ${context}` : "No knowledge base is loaded. Answer general questions helpfully, but let the user know you don't have specific information about their product/service."}
 

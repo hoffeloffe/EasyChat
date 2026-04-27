@@ -3,7 +3,7 @@ import type { KnowledgeEntry } from "./types";
 /**
  * File-based chatbot engine.
  * Performs fuzzy keyword matching against a knowledge base loaded from JSON.
- * Runs 100% in the browser — no AI, no server, no API keys.
+ * Runs 100% in the browser - no AI, no server, no API keys.
  */
 export class FileEngine {
   private entries: KnowledgeEntry[] = [];

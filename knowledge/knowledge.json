@@ -11,7 +11,7 @@
   },
   {
     "question": "What is file mode?",
-    "answer": "File mode is EasyChat's no-AI option. It reads questions and answers from a JSON file and uses keyword matching to find the best response. No API keys needed, no server required — it runs 100% in the browser.",
+    "answer": "File mode is EasyChat's no-AI option. It reads questions and answers from a JSON file and uses keyword matching to find the best response. No API keys needed, no server required - it runs 100% in the browser.",
     "keywords": ["file", "mode", "no-ai", "keyword", "matching", "browser"]
   },
   {
