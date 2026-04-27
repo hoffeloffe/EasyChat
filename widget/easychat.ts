@@ -43,6 +43,7 @@ export class EasyChat {
   private toggleEl!: HTMLButtonElement;
   private suggestionsEl!: HTMLDivElement;
   private suggestionsShown = true;
+  private styleEl!: HTMLStyleElement;
 
   constructor(userConfig: Partial<EasyChatConfig>) {
     this.config = this.mergeConfig(userConfig);
@@ -60,10 +61,10 @@ export class EasyChat {
 
   private async init(): Promise<void> {
     // Inject styles
-    const style = document.createElement("style");
+    this.styleEl = document.createElement("style");
     const { primaryColor, darkMode, borderRadius, width, height } = this.config.theme;
-    style.textContent = getStyles(primaryColor!, darkMode!, borderRadius!, width!, height!);
-    document.head.appendChild(style);
+    this.styleEl.textContent = getStyles(primaryColor!, darkMode!, borderRadius!, width!, height!);
+    document.head.appendChild(this.styleEl);
 
     // Create DOM
     this.container = document.createElement("div");
@@ -210,7 +211,8 @@ export class EasyChat {
       await this.delay(300 + Math.random() * 500);
       reply = this.fileEngine.getAnswer(text);
     } else if (this.config.mode === "ai" && this.aiEngine) {
-      reply = await this.aiEngine.getAnswer(text, this.messages);
+      // Pass history excluding the message we just added — the server appends it separately
+      reply = await this.aiEngine.getAnswer(text, this.messages.slice(0, -1));
     } else {
       reply = "Chat is not configured correctly. Please check the setup.";
     }
@@ -223,7 +225,6 @@ export class EasyChat {
     this.isTyping = true;
     const typing = document.createElement("div");
     typing.className = "ec-typing";
-    typing.id = "ec-typing-indicator";
     typing.innerHTML = '<div class="ec-typing-dot"></div><div class="ec-typing-dot"></div><div class="ec-typing-dot"></div>';
     this.messagesEl.appendChild(typing);
     this.scrollToBottom();
@@ -231,7 +232,7 @@ export class EasyChat {
 
   private hideTyping(): void {
     this.isTyping = false;
-    const typing = document.getElementById("ec-typing-indicator");
+    const typing = this.messagesEl.querySelector(".ec-typing");
     if (typing) typing.remove();
   }
 
@@ -254,6 +255,7 @@ export class EasyChat {
   /** Destroy the widget and clean up */
   destroy(): void {
     this.container.remove();
+    this.styleEl.remove();
   }
 }
 
@@ -270,7 +272,10 @@ export class EasyChat {
   if (configUrl) {
     // Load config from URL
     fetch(configUrl)
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) throw new Error(`Failed to load config: ${res.status}`);
+        return res.json();
+      })
       .then((config) => {
         (window as unknown as Record<string, unknown>).EasyChatInstance = new EasyChat(config);
       })

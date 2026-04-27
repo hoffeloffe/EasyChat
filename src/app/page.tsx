@@ -204,22 +204,24 @@ function ConfigGenerator() {
   const [serverUrl, setServerUrl] = useState("http://localhost:3001");
   const [copied, setCopied] = useState(false);
 
+  const escAttr = (s: string) => s.replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
   const scriptTag = mode === "file"
     ? `<script src="https://cdn.jsdelivr.net/gh/hoffeloffe/EasyChat@main/dist/easychat.min.js"
   data-mode="file"
-  data-bot-name="${botName}"
-  data-welcome="${welcome}"
-  data-knowledge-url="${knowledgeUrl}"
-  data-color="${color}"
-  data-position="${position}">
+  data-bot-name="${escAttr(botName)}"
+  data-welcome="${escAttr(welcome)}"
+  data-knowledge-url="${escAttr(knowledgeUrl)}"
+  data-color="${escAttr(color)}"
+  data-position="${escAttr(position)}">
 </script>`
     : `<script src="https://cdn.jsdelivr.net/gh/hoffeloffe/EasyChat@main/dist/easychat.min.js"
   data-mode="ai"
-  data-bot-name="${botName}"
-  data-welcome="${welcome}"
-  data-server-url="${serverUrl}"
-  data-color="${color}"
-  data-position="${position}">
+  data-bot-name="${escAttr(botName)}"
+  data-welcome="${escAttr(welcome)}"
+  data-server-url="${escAttr(serverUrl)}"
+  data-color="${escAttr(color)}"
+  data-position="${escAttr(position)}">
 </script>`;
 
   const handleCopy = () => {

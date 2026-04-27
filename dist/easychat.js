@@ -491,10 +491,10 @@
       });
     }
     async init() {
-      const style = document.createElement("style");
+      this.styleEl = document.createElement("style");
       const { primaryColor, darkMode, borderRadius, width, height } = this.config.theme;
-      style.textContent = getStyles(primaryColor, darkMode, borderRadius, width, height);
-      document.head.appendChild(style);
+      this.styleEl.textContent = getStyles(primaryColor, darkMode, borderRadius, width, height);
+      document.head.appendChild(this.styleEl);
       this.container = document.createElement("div");
       this.container.className = "ec-widget";
       this.container.innerHTML = this.buildHTML();
@@ -609,7 +609,7 @@
         await this.delay(300 + Math.random() * 500);
         reply = this.fileEngine.getAnswer(text);
       } else if (this.config.mode === "ai" && this.aiEngine) {
-        reply = await this.aiEngine.getAnswer(text, this.messages);
+        reply = await this.aiEngine.getAnswer(text, this.messages.slice(0, -1));
       } else {
         reply = "Chat is not configured correctly. Please check the setup.";
       }
@@ -620,14 +620,13 @@
       this.isTyping = true;
       const typing = document.createElement("div");
       typing.className = "ec-typing";
-      typing.id = "ec-typing-indicator";
       typing.innerHTML = '<div class="ec-typing-dot"></div><div class="ec-typing-dot"></div><div class="ec-typing-dot"></div>';
       this.messagesEl.appendChild(typing);
       this.scrollToBottom();
     }
     hideTyping() {
       this.isTyping = false;
-      const typing = document.getElementById("ec-typing-indicator");
+      const typing = this.messagesEl.querySelector(".ec-typing");
       if (typing) typing.remove();
     }
     scrollToBottom() {
@@ -646,6 +645,7 @@
     /** Destroy the widget and clean up */
     destroy() {
       this.container.remove();
+      this.styleEl.remove();
     }
   };
   (function autoInit() {
@@ -655,7 +655,10 @@
     const configUrl = script.getAttribute("data-config");
     const mode = script.getAttribute("data-mode");
     if (configUrl) {
-      fetch(configUrl).then((res) => res.json()).then((config) => {
+      fetch(configUrl).then((res) => {
+        if (!res.ok) throw new Error(`Failed to load config: ${res.status}`);
+        return res.json();
+      }).then((config) => {
         window.EasyChatInstance = new EasyChat(config);
       }).catch((err) => console.error("[EasyChat] Failed to load config:", err));
     } else if (mode) {
